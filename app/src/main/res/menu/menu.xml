@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Portfel"
+        android:icon="@drawable/ic_wallet"/>
+
+    <item
+        android:id="@+id/calendar"
+        android:title="Spis miesięcy"
+        android:icon="@drawable/ic_calendar"/>
+
+
+</menu>
