@@ -11,23 +11,36 @@
     <ProgressBar
         android:id="@+id/progress"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:indeterminate="false"
-        android:max="100"
         android:progressDrawable="@drawable/progressbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintVertical_bias="0.12" />
+
+    <EditText
+        android:id="@+id/kwota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Kwota"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dodaj"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress"
+        app:layout_constraintVertical_bias="0.094" />
 
     <TextView
         android:textColor="@color/black"
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0%"
+        android:text="0 zł"
         app:layout_constraintBottom_toBottomOf="@+id/progress"
         app:layout_constraintEnd_toEndOf="@+id/progress"
         app:layout_constraintStart_toStartOf="@+id/progress"
@@ -38,26 +51,26 @@
         android:id="@+id/dodaj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+10%"
+        android:text="+"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/minus"
-        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.095" />
 
     <Button
         android:id="@+id/minus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="80dp"
-        android:text="-10%"
+        android:layout_marginEnd="4dp"
         android:enabled="false"
+        android:text="-"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintVertical_bias="0.095" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
