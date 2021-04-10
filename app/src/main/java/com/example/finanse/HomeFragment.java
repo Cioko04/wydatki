@@ -11,13 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
     private  TextView textView;
     private Button dodaj, minus;
-    private EditText kwota;
+    private EditText textKwota;
     private int budzet = 2500, wydane = 0;
     private ProgressBar progressBar;
+    private View view;
 
 
     public HomeFragment() {
@@ -26,23 +28,39 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home,
+
+        view = inflater.inflate(R.layout.fragment_home,
                 container,false);
+
+        setUp();
+
+        dodaj.setOnClickListener(v -> setDodaj());
+        minus.setOnClickListener(v -> setMinus());
+
+        return view;
+    }
+    public void setUp(){
         textView = view.findViewById(R.id.text);
-        kwota = view.findViewById(R.id.kwota);
+        textKwota = view.findViewById(R.id.kwota);
         dodaj = view.findViewById(R.id.dodaj);
         minus = view.findViewById(R.id.minus);
         progressBar = view.findViewById(R.id.progress);
         progressBar.setMax(budzet);
-
-        dodaj.setOnClickListener(v -> setDodaj());
-        minus.setOnClickListener(v -> setMinus());
-        return view;
+        textView.setText("Budżet: " + budzet + " zł");
     }
 
+    public int getKwota(){
+        int kwota = 0;
+        try{
+            kwota = Integer.parseInt(textKwota.getText().toString());
+        }catch (Exception e){
+            Toast.makeText(getActivity(),"Błędne dane!",Toast.LENGTH_SHORT).show();
+        }
+        return kwota;
+    }
 
     public void setDodaj(){
-        wydane += Integer.parseInt(kwota.getText().toString());
+        wydane += getKwota();
         minus.setEnabled(true);
         if(wydane <=(budzet/2)) progressBar.setSecondaryProgress(wydane);
         if(wydane >(budzet/2)) progressBar.setProgress(wydane);
@@ -50,8 +68,9 @@ public class HomeFragment extends Fragment {
         textView.setText("Wydane: " + wydane + " zł\n"+
                 "Budżet: " + budzet + " zł") ;
     }
+
     public void setMinus(){
-        wydane -= Integer.parseInt(kwota.getText().toString());
+        wydane -= getKwota();
         dodaj.setEnabled(true);
         if(wydane <= (budzet/2)) {
             progressBar.setSecondaryProgress(wydane);
@@ -60,7 +79,7 @@ public class HomeFragment extends Fragment {
         if(wydane > (budzet/2)) progressBar.setProgress(wydane);
         if(wydane <=0) minus.setEnabled(false);
         textView.setText("Wydane: "+ wydane + " zł\n"+
-                "Budżet" + budzet + " zł");
+                "Budżet: " + budzet + " zł");
     }
 
 }
