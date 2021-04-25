@@ -1,51 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <layer-list   xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@android:id/background">
-        <rotate
-            android:fromDegrees="270"
-            android:toDegrees="270"
-            android:pivotX="50%"
-            android:pivotY="50%" >
-            <shape
-                android:innerRadiusRatio="3"
-                android:shape="ring"
-                android:useLevel="false"
-                android:thicknessRatio="7.0" >
-                <solid android:color="#FFFFFF"/>
-            </shape>
-        </rotate>
+    <item>
+        <shape
+            android:shape="ring"
+            android:thicknessRatio="16"
+            android:useLevel="false">
+            <solid android:color="#DDD" />
+        </shape>
     </item>
-
-    <item android:id="@android:id/progress">
+    <item>
         <rotate
             android:fromDegrees="270"
-            android:toDegrees="270"
-            android:pivotX="50%"
-            android:pivotY="50%" >
+            android:toDegrees="270">
             <shape
-                android:innerRadiusRatio="3"
                 android:shape="ring"
-                android:thicknessRatio="7.0"
+                android:thicknessRatio="16"
                 android:useLevel="true">
-                <solid android:color="#E64A19"/>
-
-            </shape>
-        </rotate>
-    </item>
-
-     <item android:id="@android:id/secondaryProgress">
-        <rotate
-            android:fromDegrees="270"
-            android:toDegrees="270"
-            android:pivotX="50%"
-            android:pivotY="50%" >
-            <shape
-                android:innerRadiusRatio="3"
-                android:shape="ring"
-                android:thicknessRatio="7.0"
-                android:useLevel="true">
-                <solid android:color="#FBC02D"/>
+                <solid android:color="#EF6E0B" />
             </shape>
         </rotate>
     </item>

@@ -7,19 +7,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeFragment extends Fragment {
-    private  TextView textView;
-    private Button dodaj, minus;
+    private TextView textView;
+    private Button dodaj;
     private EditText textKwota;
-    private int budzet = 2500, wydane = 0;
+    private int budzetPr = 2500;
+    private double budzet = 2500, wydane = 0;
     private ProgressBar progressBar;
     private View view;
+    private Spinner spinner;
+    private String[] typ;
 
 
     public HomeFragment() {
@@ -30,56 +35,52 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_home,
-                container,false);
+                container, false);
 
         setUp();
-
+        spinnerSetUp();
         dodaj.setOnClickListener(v -> setDodaj());
-        minus.setOnClickListener(v -> setMinus());
 
         return view;
     }
-    public void setUp(){
+
+    private void spinnerSetUp() {
+        typ = new String[]{"Żywność", "Opłaty", "Ubrania", "Prezenty"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, typ);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+    }
+
+    public void setUp() {
+        spinner = view.findViewById(R.id.spinner);
         textView = view.findViewById(R.id.text);
         textKwota = view.findViewById(R.id.kwota);
         dodaj = view.findViewById(R.id.dodaj);
-        minus = view.findViewById(R.id.minus);
         progressBar = view.findViewById(R.id.progress);
-        progressBar.setMax(budzet);
+        progressBar.setMax((int) (budzet));
         textView.setText("Budżet: " + budzet + " zł");
     }
 
-    public int getKwota(){
-        int kwota = 0;
-        try{
-            kwota = Integer.parseInt(textKwota.getText().toString());
-        }catch (Exception e){
-            Toast.makeText(getActivity(),"Błędne dane!",Toast.LENGTH_SHORT).show();
+    public double getKwota() {
+        double kwota = 0;
+        try {
+            kwota = Double.parseDouble(textKwota.getText().toString());
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Wprowadź kwotę!", Toast.LENGTH_SHORT).show();
         }
         return kwota;
     }
 
-    public void setDodaj(){
+    public void setDodaj() {
         wydane += getKwota();
-        minus.setEnabled(true);
-        if(wydane <=(budzet/2)) progressBar.setSecondaryProgress(wydane);
-        if(wydane >(budzet/2)) progressBar.setProgress(wydane);
-        if(wydane >= budzet) dodaj.setEnabled(false);
-        textView.setText("Wydane: " + wydane + " zł\n"+
-                "Budżet: " + budzet + " zł") ;
+        progressBar.setSecondaryProgress((int) wydane);
+        if ((wydane / budzet) * 100 > 50) {
+            progressBar.setProgress((int) (wydane));
+        }
+        textView.setText("Wydane: " + wydane + " zł\n" +
+                "Budżet: " + budzet + " zł");
+
     }
 
-    public void setMinus(){
-        wydane -= getKwota();
-        dodaj.setEnabled(true);
-        if(wydane <= (budzet/2)) {
-            progressBar.setSecondaryProgress(wydane);
-            progressBar.setProgress(0);
-        }
-        if(wydane > (budzet/2)) progressBar.setProgress(wydane);
-        if(wydane <=0) minus.setEnabled(false);
-        textView.setText("Wydane: "+ wydane + " zł\n"+
-                "Budżet: " + budzet + " zł");
-    }
 
 }
